@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "weather"
 ]
 
 MIDDLEWARE = [
@@ -71,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "appweather.wsgi.application"
+WSGI_APPLICATION = "appweather.wsgi.app"
 
 
 # Database
@@ -119,3 +120,25 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+STATIC_URL = "/static/"
+# path where all static files will be stored after running collectstatic
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+
+COMPRESS_ROOT = STATIC_ROOT
+
+COMPRESS_ENABLED = True
+
+COMPRESS_OFFLINE = True
+
+COMPRESS_URL = STATIC_URL
+
+# dirs where the static files should be looking for
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+]
