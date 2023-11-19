@@ -3,7 +3,7 @@ import psycopg2
 import os
 # import pandas as pd
 # from sqlalchemy import create_engine
-from datetime import date
+from datetime import date, datetime, timedelta
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -31,7 +31,7 @@ class handler(BaseHTTPRequestHandler):
         
         cursor.execute("""select max(created_at) from weather_weather;""")
         last_updated = cursor.fetchone()[0]
-        if last_updated.date() < date.today():
+        if last_updated.date() < (datetime.now()+timedelta(hours=1)).date():
             API_KEY=os.getenv('API_KEY')
             loc=['London,UK|Stockholm, SE|Kyiv, UA|Ljubljana, SI|Bratislava, SK|Skopje, MKD|Nikosia, CY|Belgrade, RS|Chisinau MD|Podgorica, MNE|Madrit, ES|Dublin, IR|Vienna, AU|Georgia, GA|Prague, CZ|Rome, IT|Tirana, AL|Reykjavik, IS|Talinn, ES|Andorra la Vella, AD|Bern, CH|Pristina, XK|Warsaw, PL|Bucharest, RO|Luxembourg, LU|Vilnius, LT|Riga, LV|Vaduz, LI|Ankara, TR|Oslo, NO|Lisbon, PT|Amsterdam, NL|Athens, GR|Minsk, BY|Helsinki, FN|Budapest, HU|Sarajevo, BA|Berlin, DE|Zagreb, HR|Copenhagen, DK|Sofia, BG|Paris, FR|Brussels, BE']
             url=f'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timelinemulti?key={API_KEY}&locations={loc}&destart=today'
@@ -63,7 +63,7 @@ class handler(BaseHTTPRequestHandler):
                           item['icon']))
         connection.commit()
 
-        self.wfile.write(f'updated'.encode())
+        self.wfile.write(f'updated, {last_updated}, {datetime.now()}'.encode())
         return
 
  
