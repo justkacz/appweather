@@ -5,14 +5,16 @@ __pycache__
 
 # Env
 .env
-wenv/
+weatherenv/
 venv/
+
 
 # Database
 db.sqlite3
 
 # Static folder at project root
-# /static/
+staticfiles_build/
+static/
 
 # macOS
 ._*

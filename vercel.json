@@ -15,6 +15,10 @@
         "config": {
             "distDir": "staticfiles_build"
         }
+      },
+      {
+        "src": "api/index.py",
+        "use": "@vercel/python"
       }
     ],
     "routes": [
@@ -22,9 +26,13 @@
             "src": "/static/(.*)",
             "dest": "/static/$1"
           },
-      {
-        "src": "/(.*)",
-        "dest": "appweather/wsgi.py"
-      }
+          {
+            "src": "/api",
+            "dest": "api/index.py"
+        },
+        {
+          "src": "/(.*)",
+          "dest": "appweather/wsgi.py"
+        }
     ]
   }
