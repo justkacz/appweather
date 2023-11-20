@@ -27,43 +27,43 @@ class handler(BaseHTTPRequestHandler):
 			password = os.getenv('POSTGRES_PASSWORD')
 		)
         cursor = connection.cursor()
-        cursor.execute("""Delete from weather_weather where created_at < CURRENT_DATE-14;""")
+        # cursor.execute("""Delete from weather_weather where created_at < CURRENT_DATE-14;""")
         
-        cursor.execute("""select max(created_at) from weather_weather;""")
-        last_updated = cursor.fetchone()[0]
-        if last_updated.date() < (datetime.now()+timedelta(hours=1)).date():
-            API_KEY=os.getenv('API_KEY')
-            loc=['London,UK|Stockholm, SE|Kyiv, UA|Ljubljana, SI|Bratislava, SK|Skopje, MKD|Nikosia, CY|Belgrade, RS|Chisinau MD|Podgorica, MNE|Madrit, ES|Dublin, IR|Vienna, AU|Georgia, GA|Prague, CZ|Rome, IT|Tirana, AL|Reykjavik, IS|Talinn, ES|Andorra la Vella, AD|Bern, CH|Pristina, XK|Warsaw, PL|Bucharest, RO|Luxembourg, LU|Vilnius, LT|Riga, LV|Vaduz, LI|Ankara, TR|Oslo, NO|Lisbon, PT|Amsterdam, NL|Athens, GR|Minsk, BY|Helsinki, FN|Budapest, HU|Sarajevo, BA|Berlin, DE|Zagreb, HR|Copenhagen, DK|Sofia, BG|Paris, FR|Brussels, BE']
-            url=f'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timelinemulti?key={API_KEY}&locations={loc}&destart=today'
-            today_loc = requests.get(url).json()
-            data = today_loc['locations']
-            for country in data:
-                latitude = country['latitude']
-                longitude = country['longitude']
-                address = country['resolvedAddress']
-                for item in country['days']:
-                    cursor.execute("""
-                    INSERT INTO weather_weather (created_at, latitude, longitude, address, measure_date, temp_max, temp_min, temp, humidity, windspeed, pressure, cloudcover, sunrise, sunset, conditions, description, icon) values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,  %s, %s, %s, %s);""",
-                        ( date.today(),
-                          latitude,
-                          longitude,
-                          address,
-                          item['datetime'],
-                          item['tempmax'],
-                          item['tempmin'],
-                          item['temp'],
-                          item['humidity'],
-                          item['windspeed'],
-                          item['pressure'],
-                          item['cloudcover'],
-                          item['sunrise'],
-                          item['sunset'],
-                          item['conditions'],
-                          item['description'],
-                          item['icon']))
+        # cursor.execute("""select max(created_at) from weather_weather;""")
+        # last_updated = cursor.fetchone()[0]
+        # if last_updated.date() < (datetime.now()+timedelta(hours=1)).date():
+        API_KEY=os.getenv('API_KEY')
+        loc=['London,UK|Stockholm, SE|Kyiv, UA|Ljubljana, SI|Bratislava, SK|Skopje, MKD|Nikosia, CY|Belgrade, RS|Chisinau MD|Podgorica, MNE|Madrit, ES|Dublin, IR|Vienna, AU|Georgia, GA|Prague, CZ|Rome, IT|Tirana, AL|Reykjavik, IS|Talinn, ES|Andorra la Vella, AD|Bern, CH|Pristina, XK|Warsaw, PL|Bucharest, RO|Luxembourg, LU|Vilnius, LT|Riga, LV|Vaduz, LI|Ankara, TR|Oslo, NO|Lisbon, PT|Amsterdam, NL|Athens, GR|Minsk, BY|Helsinki, FN|Budapest, HU|Sarajevo, BA|Berlin, DE|Zagreb, HR|Copenhagen, DK|Sofia, BG|Paris, FR|Brussels, BE']
+        url=f'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timelinemulti?key={API_KEY}&locations={loc}&destart=today'
+        today_loc = requests.get(url).json()
+        data = today_loc['locations']
+        for country in data:
+            latitude = country['latitude']
+            longitude = country['longitude']
+            address = country['resolvedAddress']
+            for item in country['days']:
+                cursor.execute("""
+                INSERT INTO weather_weather (created_at, latitude, longitude, address, measure_date, temp_max, temp_min, temp, humidity, windspeed, pressure, cloudcover, sunrise, sunset, conditions, description, icon) values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,  %s, %s, %s, %s);""",
+                    ( date.today(),
+                      latitude,
+                      longitude,
+                      address,
+                      item['datetime'],
+                      item['tempmax'],
+                      item['tempmin'],
+                      item['temp'],
+                      item['humidity'],
+                      item['windspeed'],
+                      item['pressure'],
+                      item['cloudcover'],
+                      item['sunrise'],
+                      item['sunset'],
+                      item['conditions'],
+                      item['description'],
+                      item['icon']))
         connection.commit()
 
-        self.wfile.write(f'updated, {last_updated}, {datetime.now()}'.encode())
+        self.wfile.write(f'updated'.encode())
         return
 
  

@@ -8,7 +8,6 @@ django-appconf==1.0.5
 django-compressor==4.4
 greenlet==3.0.1
 idna==3.4
-numpy==1.26.2
 psycopg2-binary==2.9.6
 python-dateutil==2.8.2
 python-dotenv==1.0.0
