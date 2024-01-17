@@ -80,21 +80,21 @@ WSGI_APPLICATION = "appweather.wsgi.app"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    # "default": {
-    #     "ENGINE": "django.db.backends.sqlite3",
-    #     "NAME": BASE_DIR / "db.sqlite3",
-    # }
-        # postgresql on vercel (prod)
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get("POSTGRES_DATABASE"),
-        'USER': os.environ.get("POSTGRES_USER"),
-        'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
-        'HOST': os.environ.get("POSTGRES_HOST"),
-        'URL': os.environ.get("POSTGRES_URL"),
-        'PRISMA_URL': os.environ.get("POSTGRES_PRISMA_URL"),
-        'URL_NON_POOLING': os.environ.get("POSTGRES_URL_NON_POOLING"),
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
+# postgresql on vercel (prod)
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': os.environ.get("POSTGRES_DATABASE"),
+    #     'USER': os.environ.get("POSTGRES_USER"),
+    #     'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
+    #     'HOST': os.environ.get("POSTGRES_HOST"),
+    #     'URL': os.environ.get("POSTGRES_URL"),
+    #     'PRISMA_URL': os.environ.get("POSTGRES_PRISMA_URL"),
+    #     'URL_NON_POOLING': os.environ.get("POSTGRES_URL_NON_POOLING"),
+    # }
 }
 
 
@@ -116,7 +116,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+# TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Amsterdam"
 
 USE_I18N = True
 
@@ -154,3 +155,15 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder',
 ]
+
+
+
+#the email settings
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True 
+EMAIL_HOST_USER =  os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASS')
+

@@ -1,0 +1,119 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block content %}
+
+ <!-- Main         -->
+ <div class="xl:ml-10 h-5/6 px-4 pt-6">
+
+            <!-- FIRST SECTION -->
+            <div class="grid w-full grid-cols-1 gap-4 mb-4 xl:grid-cols-6 2xl:grid-cols-8">
+                <div class="items-center justify-between border border-gray-200 2xl:col-span-5 rounded-lg shadow-sm sm:flex p-2">
+                            <!-- SEARCH -->
+                                    <div class="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
+                                            <div class="mr-6">
+                                                <!-- <h1 class="text-4xl font-semibold mb-2">Dashboard</h1>
+                                                <h2 class="text-gray-600 ml-0.5">Mobile UX/UI Design course</h2> -->
+                                                <form method="GET" action="{% url 'city_test' %}">
+                                                    <input id="city1" type="text" name="value" placeholder="Search City">
+                                                    <button type="submit">Search</button>
+                                                </form>
+                                            </div>
+                                    </div>
+                </div>
+                <div class="p-4 border border-gray-200 rounded-lg shadow-sm 2xl:col-span-3 sm:p-6">
+
+                </div>
+        <!-- END FIRST SECTION -->
+            </div>
+
+            
+            <!-- SECOND SECTION -->
+            <div class="h-full grid gap-4 xl:grid-cols-6 2xl:grid-cols-8">
+                <div class="px-4 pb-4 pt-2 border border-gray-200 rounded-lg shadow-sm 2xl:col-span-5">
+                    {% if today_weather %}
+                    <h1 class="text-2xl font-bold p-2 py-4">{{ today_weather.address_full }}</h1>
+                    <div class="h-fit grid md:grid-cols-4 lg:grid-cols-4 gap-7">
+                            <div class="flex flex-col items-center col-span-1 p-8 bg-stone-950 shadow-lg rounded-lg">
+                                <p class="text-yellow-500 mb-4 text-lg font-semibold">Today</p>
+                                    <!-- <h1>{{ today_weather.address }}</h1> -->
+                                    <h1 class="text-4xl font-bold">{{ today_weather.temp }}&#8451;</h1>
+                                    <p class="text-sm font-semibold mb-8">{{ today_weather.pressure }}hPa &nbsp; &nbsp; {{ today_weather.windspeed }}km/h</p>
+                                    <p class="text-xs mb-3">{{ today_weather.conditions }}</p>
+                                    <img class="w-24 h-24" src="{% static 'img/'%}{{ today_weather.icon }}.png" alt="">
+                    {% endif %}
+                            </div>
+                            {% if daily_forecast %}
+                            <!-- <h2>Daily forecast</h2>
+                                <div> -->
+                                    {% for forecast in daily_forecast %}
+                                                <div class="flex flex-col items-center col-span-1 p-8 text-stone-300 bg-[rgba(87,83,78,0.3)] shadow-lg rounded-lg">
+                                                    <h3 class="text-yellow-500 mb-5 text-sm">{{ forecast.measure_date }}</h3>
+                                                    <!-- <h3 class="text-yellow-500 mb-5 text-sm">{{ forecast.measure_date|date:'l, M Y' }}</h3> -->
+                                                    <p class="text-3xl lg:text-4xl font-bold">{{ forecast.temp }}&#8451;</p>
+                                                    <p class="text-sm font-semibold mb-8">{{ forecast.pressure }}hPa &nbsp; &nbsp; {{ forecast.windspeed }}km/h</p>
+                                                    <p class="text-xs mb-3">{{ forecast.conditions }}</p>
+                                                    <img class="w-24 h-24" src="{% static 'img/'%}{{ forecast.icon }}.png" alt="">
+                                                </div>
+                                    {% endfor %}
+                                <!-- </div> -->
+                            {% endif %}
+                    </div>
+                </div>
+                <div class="border border-gray-200 rounded-lg shadow-sm 2xl:col-span-3 sm:p-6">
+                    {% if today_weather %}
+                                <div class="h-full grid md:grid-cols-2 lg:grid-cols-6 gap-3">
+                                            <div class="flex flex-col items-center col-span-3 p-2 bg-stone-950 shadow-lg rounded-lg">
+                                                <p class="text-sm mt-2">Sunrise</p>
+                                                <div class="flex items-center justify-around w-full">
+                                                    <img class="h-20" src="{% static 'img/'%}sunrise.svg" alt="">
+                                                    <p class="text-3xl font-medium">{{ today_weather.sunrise }}</p>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="flex flex-col col-span-3 items-center p-2 bg-stone-950 shadow-lg rounded-lg">
+                                                <p class="text-sm mt-2">Sunset</p>
+                                                <div class="flex items-center justify-around w-full">
+                                                    <img class="h-20" src="{% static 'img/'%}sunset.svg" alt="">
+                                                    <p class="text-3xl font-medium">{{ today_weather.sunset }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="flex flex-col col-span-6 items-center p-2 bg-stone-950 shadow-lg rounded-lg">
+                                                    <div class="flex w-full justify-around">
+                                                            <div class="w-1/2">
+                                                                <canvas class="" id="city-charts1" data-url="{% url 'city-charts' %}"></canvas>
+                                                            </div>
+                                                            <div class="w-1/2">
+                                                                <canvas class="" id="city-charts2" data-url="{% url 'city-charts' %}"></canvas>
+                                                            </div>
+                                                    </div>
+                                                    <div class="flex w-full justify-around mt-6 mb-4">
+                                                            <div class="w-1/2">
+                                                                <canvas class="" id="city-charts3" data-url="{% url 'city-charts' %}"></canvas>
+                                                            </div>
+                                                            <div class="w-1/2">
+                                                                <canvas class="" id="city-charts4" data-url="{% url 'city-charts' %}"></canvas>
+                                                            </div>    
+                                                    </div>
+
+                                            </div>
+                                            <div class="col-span-6 px-8 pt-4 pb-0 bg-stone-950 shadow-lg rounded-lg">
+                                                <canvas class="h-full w-full" id="temp-change-chart" data-url="{% url 'city-charts' %}"></canvas>
+                                            </div>
+                                </div>
+                    {% endif %}
+                </div>
+            </div>
+<!-- END MAIN -->
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/tempChangeChart.js' %}"></script>
+<script src="{% static 'js/gaugeChart1.js' %}"></script>
+<script src="{% static 'js/gaugeChart2.js' %}"></script>
+<script src="{% static 'js/gaugeChart3.js' %}"></script>
+<script src="{% static 'js/gaugeChart4.js' %}"></script>
+{% endblock %}
