@@ -60,6 +60,9 @@ $(function () {
               title: {
                 display: true,
                 text: 'Capitals'
+              },
+              ticks: {
+                autoSkip: false,
               }
             }
           },

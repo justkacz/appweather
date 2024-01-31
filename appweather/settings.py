@@ -80,21 +80,21 @@ WSGI_APPLICATION = "appweather.wsgi.app"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    # "default": {
-    #     "ENGINE": "django.db.backends.sqlite3",
-    #     "NAME": BASE_DIR / "db.sqlite3",
-    # }
-# postgresql on vercel (prod)
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get("POSTGRES_DATABASE"),
-        'USER': os.environ.get("POSTGRES_USER"),
-        'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
-        'HOST': os.environ.get("POSTGRES_HOST"),
-        'URL': os.environ.get("POSTGRES_URL"),
-        'PRISMA_URL': os.environ.get("POSTGRES_PRISMA_URL"),
-        'URL_NON_POOLING': os.environ.get("POSTGRES_URL_NON_POOLING"),
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
+# postgresql on vercel (prod)
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': os.environ.get("POSTGRES_DATABASE"),
+    #     'USER': os.environ.get("POSTGRES_USER"),
+    #     'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
+    #     'HOST': os.environ.get("POSTGRES_HOST"),
+    #     'URL': os.environ.get("POSTGRES_URL"),
+    #     'PRISMA_URL': os.environ.get("POSTGRES_PRISMA_URL"),
+    #     'URL_NON_POOLING': os.environ.get("POSTGRES_URL_NON_POOLING"),
+    # }
 }
 
 

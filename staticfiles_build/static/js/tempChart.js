@@ -135,7 +135,9 @@ $(function () {
                             },
                             ticks: {                
                                 callback: (index) => data.labels[index],
-                                stepSize: 1              
+                                stepSize: 1,
+                                autoSkip: false,      
+                                fontSize: 7   
                                 // callback: function(val, index) {
                                     // Hide every 2nd tick label
                                     // return index % 2 === 0 ? this.getLabelForValue(val) : '';

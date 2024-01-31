@@ -9,17 +9,8 @@
             <!-- FIRST SECTION -->
             <div class="grid w-full grid-cols-1 gap-4 mb-4 xl:grid-cols-6 2xl:grid-cols-8">
                 <div class="items-center justify-between border border-gray-200 2xl:col-span-5 rounded-lg shadow-sm sm:flex p-2">
-                            <!-- SEARCH -->
-                                    <div class="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
-                                            <div class="mr-6">
-                                                <!-- <h1 class="text-4xl font-semibold mb-2">Dashboard</h1>
-                                                <h2 class="text-gray-600 ml-0.5">Mobile UX/UI Design course</h2> -->
-                                                <form method="GET" action="{% url 'city_test' %}">
-                                                    <input id="city1" type="text" name="value" placeholder="Search City">
-                                                    <button type="submit">Search</button>
-                                                </form>
-                                            </div>
-                                    </div>
+                    <!-- SEARCH -->
+                    {% include 'search.html' %}
                 </div>
                 <div class="p-4 border border-gray-200 rounded-lg shadow-sm 2xl:col-span-3 sm:p-6">
 
