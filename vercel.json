@@ -19,10 +19,6 @@
       {
         "src": "api/index.py",
         "use": "@vercel/python"
-      },
-      {
-        "src": "api/delete/index.py",
-        "use": "@vercel/python"
       }
     ],
     "routes": [
@@ -34,10 +30,6 @@
             "src": "/api",
             "dest": "api/index.py"
         },
-        {
-          "src": "/api/delete",
-          "dest": "api/delete/index.py"
-      },
         {
           "src": "/(.*)",
           "dest": "appweather/wsgi.py"
