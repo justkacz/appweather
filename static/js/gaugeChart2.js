@@ -38,9 +38,9 @@ $(function () {
             const yCoor = meta.data[0].y;
             ctx.save();
             ctx.textAlign = 'center';
-            ctx.font = '25px sans-serif';
+            ctx.font = '18px sans-serif';
             ctx.fillStyle = "rgb(245, 245, 244)";
-            ctx.fillText(data.data[0].windspeed + '%', xCoor, yCoor);
+            ctx.fillText(data.data[0].windspeed + ' km/h', xCoor, yCoor);
             ctx.restore();
           },
         };
@@ -89,7 +89,7 @@ $(function () {
                 text: 'Windspeed'
               },
               tooltip: {
-                enabled: false,
+                // enabled: false,
                 // position: 'top',
               }
             }

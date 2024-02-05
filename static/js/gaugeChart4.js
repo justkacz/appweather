@@ -49,9 +49,9 @@ $(function () {
             const perc = chart.data.datasets[0].data[0] / meta.total * 100;
             ctx.save();
             ctx.textAlign = 'center';
-            ctx.font = '25px sans-serif';
+            ctx.font = '18px sans-serif';
             ctx.fillStyle = "rgb(245, 245, 244)";
-            ctx.fillText(data.data[0].windspeed + '%', xCoor, yCoor);
+            ctx.fillText(data.data[0].humidity + '%', xCoor, yCoor);
             ctx.restore();
           },
         };
@@ -63,7 +63,7 @@ $(function () {
           data: {
               // labels: ['Score', 'Grey Area'],
               datasets: [{
-                  data: [data.data[0].windspeed, 100-data.data[0].windspeed],
+                  data: [data.data[0].humidity, 100-data.data[0].humidity],
                   // data: [80, 20],
                   backgroundColor: [
                      gradient,

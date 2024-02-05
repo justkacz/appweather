@@ -88,7 +88,8 @@ def index(request):
         'capital_min_wind': min_wind,
         'capital_max_uv': max_uv,
         'capital_min_uv': min_uv,
-        'country_max_solarenergy': max_solarenergy,
+        'country_max_solarenergy': max_solarenergy['address'].split(',')[0],
+        'val_max_solarenergy': max_solarenergy['temp'],
         'all_countries_temp': countries_temp,
         'top_sunenergy': top_sunenergy[:5],
         'cloudcover': cloudcover,
@@ -246,6 +247,7 @@ def mapping(json, range):
                   'windspeed': json['days'][i]['windspeed'],
                   'pressure': json['days'][i]['pressure'],
                   'cloudcover': json['days'][i]['cloudcover'],
+                  'solarenergy': json['days'][i]['solarenergy'],
                   'sunrise': json['days'][i]['sunrise'],
                   'sunset': json['days'][i]['sunset'],
                   'conditions': json['days'][i]['conditions'],
@@ -307,33 +309,3 @@ def contactView(request):
 
 def successView(request):
     return HttpResponse("Success! Thank you for your message.")
-
-# def city_test(request, city):   
-#     if request.method == 'GET':
-#         temp_change = []
-#         # city=request.GET.get('value') #the same name as name fields in the input element
-#         city=city
-#         loc=['London,UK', 'Stockholm, SE', 'Kyiv, UA', 'Ljubljana, SI', 'Bratislava, SK', 'Skopje, MKD', 'Nikosia, CY', 'Belgrade, RS', 'Chisinau MD', 'Podgorica, MNE', 'Madrit, ES', 'Dublin, IR', 'Vienna, AU', 'Georgia, GA', 'Prague, CZ', 'Rome, IT', 'Tirana, AL', 'Reykjavik, IS', 'Talinn, ES', 'Andorra la Vella, AD', 'Bern, CH', 'Pristina, XK', 'Warsaw, PL', 'Bucharest, RO', 'Luxembourg, LU', 'Vilnius, LT', 'Riga, LV', 'Vaduz, LI', 'Ankara, TR', 'Oslo, NO', 'Lisbon, PT', 'Amsterdam, NL', 'Athens, GR', 'Minsk, BY', 'Helsinki, FN', 'Budapest, HU', 'Sarajevo, BA', 'Berlin, DE', 'Zagreb, HR', 'Copenhagen, DK', 'Sofia, BG', 'Paris, FR', 'Brussels, BE']
-#         if city not in loc:
-#             API_KEY=os.getenv('API_KEY')
-#             url =f'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{city}/next7days?unitGroup=metric&include=days%2Ccurrent&key={API_KEY}&contentType=json'
-#             response = requests.get(url.format(city, API_KEY)).json()
-#             today_weather, daily_forecast = mapping(response, range(1))[0], mapping(response, range(1,len(response['days'])))
-#         else:
-#             # criterion3 = Q(measure_date__range=[date.today()+timedelta(days=1), date.today()+timedelta(days=14)])
-#             # criterion3 = Q(created_at__contains=(datetime.now()+timedelta(hours=1)).date())
-#             created_today_filter=Q(created_at__contains='2023-11-22')
-#             measure_today_filter = Q(measure_date='2023-11-22')
-#             # created_today_filter=Q(created_at__contains=(datetime.now()+timedelta(hours=1)).date())
-#             # measure_today_filter = Q(measure_date=(datetime.now()+timedelta(hours=1)).date())
-#             city_filter = Q(address__contains=city)
-#             today_weather = Weather.objects.filter(created_today_filter & city_filter & measure_today_filter).first()
-#             daily_forecast = Weather.objects.filter(created_today_filter & city_filter).exclude(measure_today_filter)
-#         context = {
-#             'today_weather': today_weather,
-#             'daily_forecast': daily_forecast
-#         }
-
-#         return render(request, 'city.html', context)
-#     else:
-#         return render(request, 'index.html')

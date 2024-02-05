@@ -7,18 +7,6 @@ $(function () {
     success: function (data) {
   
       var ctx = $presChart[0].getContext("2d");
-      // const colors = {
-      //   purple: {
-      //     default: "rgba(149, 76, 233, 1)",
-      //     half: "rgba(149, 76, 233, 0.5)",
-      //     quarter: "rgba(149, 76, 233, 0.25)",
-      //     zero: "rgba(149, 76, 233, 0)"
-      //   },
-      //   indigo: {
-      //     default: "rgba(80, 102, 120, 1)",
-      //     quarter: "rgba(80, 102, 120, 0.25)"
-      //   }
-      // };
       const colors = {
         purple: {
           default: "rgba(245, 158, 11, 1)",
@@ -63,7 +51,7 @@ $(function () {
             y: {
               title: {
                 display: true,
-                text: 'Pressure'
+                text: 'Pressure mb'
               }
             },
            x: {
@@ -78,7 +66,19 @@ $(function () {
           plugins: {
             legend: {
               display: false
-            } 
+            },
+            tooltip: {
+              callbacks: {
+                  title: function(tooltipItem) {
+                      let title = data.labels[tooltipItem[0].dataIndex];
+                      return title;
+                  },
+                  label: function(context) {
+                      let label = "Temp: " + context.parsed.y
+                      return label;
+                  }
+              }
+          }
           }
         }
       });
@@ -88,70 +88,3 @@ $(function () {
   });
   
   });
-
-
-
-
-
-
-// $(function () {
-
-//   var $populationChart = $("#population-chart");
-//   $.ajax({
-//     url: $populationChart.data("url"),
-//     success: function (data) {
-  
-//       var ctx = $populationChart[0].getContext("2d");
-  
-//       new Chart(ctx, {
-//         type: 'horizontalBar',
-//         data: {
-//           labels: data.labels.slice(0, 7),
-//           datasets: [{
-//             label: 'Population',
-//             backgroundColor: [
-//               'rgba(255, 99, 132, 0.2)',
-//               'rgba(255, 159, 64, 0.2)',
-//               'rgba(255, 205, 86, 0.2)',
-//               'rgba(75, 192, 192, 0.2)',
-//               'rgba(54, 162, 235, 0.2)',
-//               'rgba(153, 102, 255, 0.2)',
-//               'rgba(201, 203, 207, 0.2)'
-//             ],
-//             borderColor: [
-//               'rgb(255, 99, 132)',
-//               'rgb(255, 159, 64)',
-//               'rgb(255, 205, 86)',
-//               'rgb(75, 192, 192)',
-//               'rgb(54, 162, 235)',
-//               'rgb(153, 102, 255)',
-//               'rgb(201, 203, 207)'
-//             ],
-//             borderWidth: 1,
-//             data: data.data.slice(0, 7)
-//           }]          
-//         },
-//         options: {
-//           responsive: true,
-//           //indexAxis: 'y',
-//           maintainAspectRatio: false,
-//           options: {
-//             scales: {
-//               ticks: {   
-//               y: {
-//                 beginAtZero: true
-//               }
-//             }
-//             }
-//           }
-//         }
-//       });
-  
-//     }
-//   });
-  
-//   });
-
-
-
-

@@ -38,7 +38,7 @@ $(function () {
             const perc = chart.data.datasets[0].data[0] / meta.total * 100;
             ctx.save();
             ctx.textAlign = 'center';
-            ctx.font = '25px sans-serif';
+            ctx.font = '20px sans-serif';
             ctx.fillStyle = "rgb(245, 245, 244)";
             ctx.fillText(data.data[0].cloudcover + '%', xCoor, yCoor);
             ctx.restore();

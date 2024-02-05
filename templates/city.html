@@ -7,24 +7,23 @@
  <div class="xl:ml-10 h-5/6 px-4 pt-6">
 
             <!-- FIRST SECTION -->
-            <div class="grid w-full grid-cols-1 gap-4 mb-4 xl:grid-cols-6 2xl:grid-cols-8">
-                <div class="items-center justify-between border border-gray-200 2xl:col-span-5 rounded-lg shadow-sm sm:flex p-2">
+            <div class="grid w-full grid-cols-1 gap-4 mb-4 2xl:grid-cols-8">
+                <div class="items-center justify-between border border-stone-600/50 2xl:col-span-5 rounded-lg shadow-sm sm:flex p-2">
                     <!-- SEARCH -->
                     {% include 'search.html' %}
                 </div>
-                <div class="p-4 border border-gray-200 rounded-lg shadow-sm 2xl:col-span-3 sm:p-6">
-
+                <div class="p-4 border border-stone-600/50 rounded-lg shadow-sm 2xl:col-span-3 sm:p-6">
                 </div>
         <!-- END FIRST SECTION -->
             </div>
 
             
             <!-- SECOND SECTION -->
-            <div class="h-full grid gap-4 xl:grid-cols-6 2xl:grid-cols-8">
-                <div class="px-4 pb-4 pt-2 border border-gray-200 rounded-lg shadow-sm 2xl:col-span-5">
+            <div class="text-stone-300 h-full grid gap-4 2xl:grid-cols-8">
+                <div class="px-4 pb-4 pt-2 border border-stone-600/50 rounded-lg shadow-sm 2xl:col-span-5">
                     {% if today_weather %}
                     <h1 class="text-2xl font-bold p-2 py-4">{{ today_weather.address_full }}</h1>
-                    <div class="h-fit grid md:grid-cols-4 lg:grid-cols-4 gap-7">
+                    <div class="h-fit grid md:grid-cols-2 lg:grid-cols-4 gap-7">
                             <div class="flex flex-col items-center col-span-1 p-8 bg-stone-950 shadow-lg rounded-lg">
                                 <p class="text-yellow-500 mb-4 text-lg font-semibold">Today</p>
                                     <!-- <h1>{{ today_weather.address }}</h1> -->
@@ -38,12 +37,12 @@
                             <!-- <h2>Daily forecast</h2>
                                 <div> -->
                                     {% for forecast in daily_forecast %}
-                                                <div class="flex flex-col items-center col-span-1 p-8 text-stone-300 bg-[rgba(87,83,78,0.3)] shadow-lg rounded-lg">
+                                                <div class="flex flex-col items-center col-span-1 p-8 bg-[rgba(87,83,78,0.3)] shadow-lg rounded-lg">
                                                     <h3 class="text-yellow-500 mb-5 text-sm">{{ forecast.measure_date }}</h3>
                                                     <!-- <h3 class="text-yellow-500 mb-5 text-sm">{{ forecast.measure_date|date:'l, M Y' }}</h3> -->
                                                     <p class="text-3xl lg:text-4xl font-bold">{{ forecast.temp }}&#8451;</p>
                                                     <p class="text-sm font-semibold mb-8">{{ forecast.pressure }}hPa &nbsp; &nbsp; {{ forecast.windspeed }}km/h</p>
-                                                    <p class="text-xs mb-3">{{ forecast.conditions }}</p>
+                                                    <p class="text-center text-xs mb-3">{{ forecast.conditions }}</p>
                                                     <img class="w-24 h-24" src="{% static 'img/'%}{{ forecast.icon }}.png" alt="">
                                                 </div>
                                     {% endfor %}
@@ -51,9 +50,9 @@
                             {% endif %}
                     </div>
                 </div>
-                <div class="border border-gray-200 rounded-lg shadow-sm 2xl:col-span-3 sm:p-6">
+                <div class="border border-stone-600/50 rounded-lg shadow-sm 2xl:col-span-3 sm:p-6">
                     {% if today_weather %}
-                                <div class="h-full grid md:grid-cols-2 lg:grid-cols-6 gap-3">
+                                <div class="h-full grid md:grid-cols-6 lg:grid-cols-6 gap-3">
                                             <div class="flex flex-col items-center col-span-3 p-2 bg-stone-950 shadow-lg rounded-lg">
                                                 <p class="text-sm mt-2">Sunrise</p>
                                                 <div class="flex items-center justify-around w-full">
@@ -88,7 +87,7 @@
                                                     </div>
 
                                             </div>
-                                            <div class="col-span-6 px-8 pt-4 pb-0 bg-stone-950 shadow-lg rounded-lg">
+                                            <div class="col-span-6 px-8 py-4 bg-stone-950 shadow-lg rounded-lg">
                                                 <canvas class="h-full w-full" id="temp-change-chart" data-url="{% url 'city-charts' %}"></canvas>
                                             </div>
                                 </div>

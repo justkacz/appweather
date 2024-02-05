@@ -82,7 +82,7 @@ $(function () {
             },
             title: {
               display: true,
-              text: 'Chart.js Line Chart',
+              text: 'Temperature forecast percentage change',
               padding: {
                 bottom: 30
             }

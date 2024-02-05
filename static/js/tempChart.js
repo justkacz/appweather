@@ -18,19 +18,19 @@ $(function () {
         const delayBetweenPoints = totalDuration / dane.length;
     
         var ctx = $tempChart[0].getContext("2d");
-        const previousY = (ctx4) => ctx4.index === 0 ? ctx4.chart.scales.y.getPixelForValue(100) : ctx4.chart.getDatasetMeta(ctx4.datasetIndex).data[ctx4.index - 1].getProps(['y'], true).y;
+        const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
         const animation = {
             x: {
               // type: 'number',
               easing: 'linear',
               duration: delayBetweenPoints,
               from: NaN, // the point is initially skipped
-              delay(ctx4) {
-                if (ctx4.type !== 'data' || ctx4.xStarted) {
+              delay(ctx) {
+                if (ctx.type !== 'data' || ctx.xStarted) {
                   return 0;
                 }
-                ctx4.xStarted = true;
-                return ctx4.index * delayBetweenPoints;
+                ctx.xStarted = true;
+                return ctx.index * delayBetweenPoints;
               }
             },
             y: {
@@ -38,12 +38,12 @@ $(function () {
               easing: 'linear',
               duration: delayBetweenPoints,
               from: previousY,
-              delay(ctx4) {
-                if (ctx4.type !== 'data' || ctx4.yStarted) {
+              delay(ctx) {
+                if (ctx.type !== 'data' || ctx.yStarted) {
                   return 0;
                 }
-                ctx4.yStarted = true;
-                return ctx4.index * delayBetweenPoints;
+                ctx.yStarted = true;
+                return ctx.index * delayBetweenPoints;
               }
             }
           };
@@ -120,7 +120,7 @@ $(function () {
                             //     return label;
                             // }
                             label: function(context) {
-                                let label = "Temp: " + context.parsed.y + "C"
+                                let label = "Temp: " + context.parsed.y
                                 return label;
                             }
                         }
@@ -149,7 +149,7 @@ $(function () {
                         y: {
                           title: {
                             display: true,
-                            text: 'Temperature'
+                            text: 'Temperature C'
                           }
                         }
                       }

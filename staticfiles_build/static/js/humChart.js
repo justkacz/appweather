@@ -53,13 +53,16 @@ $(function () {
                 },
                 title: {
                   display: true,
-                  text: 'Humidity'
+                  text: 'Humidity %'
                 }
               },
             x: {
               title: {
                 display: true,
                 text: 'Capitals'
+              },
+              ticks: {
+                autoSkip: false,
               }
             }
           },
@@ -68,21 +71,21 @@ $(function () {
               display: false,
               // position: 'top',
             },
-            // title: {
-            //   display: true,
-            //   text: 'Chart.js Bar Chart'
-            // }
+            tooltip: {
+              callbacks: {
+                  title: function(tooltipItem) {
+                      let title = data.labels[tooltipItem[0].dataIndex];
+                      return title;
+                  },
+                  label: function(context) {
+                      let label = "Humidity: " + context.parsed.y
+                      return label;
+                  }
+              }
+          }
           }
         }
       });
-      // for (let i=0; i< data.data.length; i++){
-      //     // console.log(data.data.length, data.labels[i], data.data[i])
-      //     myChart.data.labels.push([data.labels[i]]);
-      //     myChart.data.datasets[0].data.push([data.data[i]]);
-      //     console.log(myChart.data.datasets[0].data, myChart.data.labels);
-      //     // setInterval(myChart.update(), 3000);
-      //   }
-        
           for (let i=0; i< data.data.length; i++){
             setTimeout(function() {
             myChart.data.labels.push([data.labels[i]]);

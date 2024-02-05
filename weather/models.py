@@ -17,7 +17,7 @@ class Weather(models.Model):
     windspeed = models.FloatField()
     pressure = models.FloatField()
     cloudcover = models.FloatField()
-    # solarenergy = models.FloatField()
+    solarenergy = models.FloatField()
     # uvindex = models.FloatField()
     sunrise = models.TimeField()
     sunset = models.TimeField()
