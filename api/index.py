@@ -48,7 +48,7 @@ class handler(BaseHTTPRequestHandler):
                 address = re.sub(r"[\['\]]", '', country['address'])
                 for item in country['days']:
                     cursor.execute("""
-                    INSERT INTO weather_weather (created_at, latitude, longitude, address_full, address, measure_date, temp_max, temp_min, temp, humidity, windspeed, pressure, cloudcover, sunrise, sunset, conditions, description, icon) values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING;""",
+                    INSERT INTO weather_weather (created_at, latitude, longitude, address_full, address, measure_date, temp_max, temp_min, temp, humidity, windspeed, pressure, cloudcover, solarenergy, sunrise, sunset, conditions, description, icon) values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING;""",
                         ( today,
                           latitude,
                           longitude,
@@ -62,7 +62,7 @@ class handler(BaseHTTPRequestHandler):
                           item['windspeed'],
                           item['pressure'],
                           item['cloudcover'],
-                        #   item['solarenergy'],
+                          item['solarenergy'],
                           item['sunrise'],
                           item['sunset'],
                           item['conditions'],

@@ -89,7 +89,7 @@ $(function () {
                 text: 'Windspeed'
               },
               tooltip: {
-                enabled: false,
+                // enabled: false,
                 // position: 'top',
               }
             }

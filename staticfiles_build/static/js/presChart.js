@@ -74,7 +74,7 @@ $(function () {
                       return title;
                   },
                   label: function(context) {
-                      let label = "Temp: " + context.parsed.y
+                      let label = "Pressure: " + context.parsed.y
                       return label;
                   }
               }

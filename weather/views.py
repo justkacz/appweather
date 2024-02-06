@@ -28,7 +28,9 @@ from django.views.generic import DetailView, ListView, TemplateView
 
 
 loc=['Tirana, AL', 'Andorra, AD', 'Vienna, AU', 'Brussels, BE', 'Minsk, BY', 'Sarajevo, BA', 'Sofia, BG', 'Zagreb, HR', 'Podgorica, MNE', 'Prague, CZ', 'Copenhagen, DK', 'Talinn, ES', 'Helsinki, FN', 'Paris, FR', 'Athens, GR', 'Madrit, ES', 'Amsterdam, NL', 'Dublin, IR', 'Reykjavik, IS', 'Vaduz, LI', 'Vilnius, LT', 'Luxembourg, LU', 'Riga, LV', 'Skopje, MKD', 'Valetta, MT', 'Chisinau, MD', 'Monaco, MC', 'Berlin, DE', 'Oslo, NO', 'Warsaw, PL', 'Lisbon, PT', 'Moscow, RU', 'Bucharest, RO', 'San Marino, San Marino', 'Belgrade, RS', 'Bratislava, SK', 'Ljubljana, SI', 'Bern, CH', 'Stockholm, SE', 'Kiev, UA', 'Vatican, VA', 'Budapest, HU', 'London,UK', 'Rome, IT']
-
+last_refresh = Weather.objects.values('created_at').order_by('created_at').last()
+created_today_filter = Q(created_at__contains=(last_refresh['created_at'].date()))
+measure_today_filter = Q(measure_date__contains=(last_refresh['created_at'].date()))
 
 class CityWeather(DetailView):
     template_name = "city.html"
@@ -46,8 +48,8 @@ class CityWeather(DetailView):
             # created_today_filter=Q(created_at__contains='2023-11-22')
             # measure_today_filter = Q(measure_date='2023-11-22')
             # datetime.now()+timedelta(hours=1)).date()
-            created_today_filter=Q(created_at__contains=(localtime(now()).date()))
-            measure_today_filter = Q(measure_date=(localtime(now()).date()))
+            # created_today_filter=Q(created_at__contains=(localtime(now()).date()))
+            # measure_today_filter = Q(measure_date=(localtime(now()).date()))
             city_filter = Q(address__contains=city)
             today_weather = Weather.objects.filter(created_today_filter & city_filter & measure_today_filter).first()
             daily_forecast = Weather.objects.filter(created_today_filter & city_filter).exclude(measure_today_filter)
@@ -64,32 +66,31 @@ class CityWeather(DetailView):
 
 
 def index(request):
-    created_today_filter=Q(created_at__contains=(localtime(now()).date()))
-    measure_today_filter = Q(measure_date=(localtime(now()).date()))
+    # created_today_filter=Q(created_at__contains=(localtime(now()).date()))
+    # measure_today_filter = Q(measure_date=(localtime(now()).date()))
     # created_today_filter=Q(created_at__contains='2023-11-22')
     # measure_today_filter = Q(measure_date='2023-11-22')
     # dodac w modelu solarenergy
-    max_solarenergy = Weather.objects.filter(created_today_filter & measure_today_filter).values('address', 'temp').order_by('temp').last()
+    max_solarenergy = Weather.objects.filter(created_today_filter & measure_today_filter).values('address', 'solarenergy').order_by('solarenergy').last()
     max_wind = Weather.objects.filter(created_today_filter & measure_today_filter).values('address', 'windspeed').order_by('windspeed').last()
     min_wind = Weather.objects.filter(created_today_filter & measure_today_filter).values('address', 'windspeed').order_by('windspeed').first()
     # podmienic uvindex po dodaniu do modelu
-    max_uv=Weather.objects.filter(created_today_filter & measure_today_filter).values('address', 'pressure').order_by('pressure').last()
-    min_uv=Weather.objects.filter(created_today_filter & measure_today_filter).values('address', 'pressure').order_by('pressure').first()
+    # max_uv=Weather.objects.filter(created_today_filter & measure_today_filter).values('address', 'pressure').order_by('pressure').last()
+    # min_uv=Weather.objects.filter(created_today_filter & measure_today_filter).values('address', 'pressure').order_by('pressure').first()
     cloudcover= Weather.objects.filter(created_today_filter & measure_today_filter).values('address', 'cloudcover').order_by('cloudcover').last()
     countries_temp = Weather.objects.filter(created_today_filter & measure_today_filter).values('address', 'temp')
     top_sunenergy = Weather.objects.filter(created_today_filter & measure_today_filter).values('address', 'cloudcover').order_by('-cloudcover')
     avg_temp = Weather.objects.filter(created_today_filter & measure_today_filter).aggregate(avg_temp = Round(Avg("temp", default=0), 2))
     avg_wind = Weather.objects.filter(created_today_filter & measure_today_filter).aggregate(avg_wind = Round(Avg("windspeed", default=0), 2))
     total_capitals = Weather.objects.filter(created_today_filter & measure_today_filter).count()
-    last_refresh = Weather.objects.values('created_at').order_by('-created_at').first()
 
     context = {
         'capital_max_wind': max_wind,
         'capital_min_wind': min_wind,
-        'capital_max_uv': max_uv,
-        'capital_min_uv': min_uv,
+        # 'capital_max_uv': max_uv,
+        # 'capital_min_uv': min_uv,
         'country_max_solarenergy': max_solarenergy['address'].split(',')[0],
-        'val_max_solarenergy': max_solarenergy['temp'],
+        'val_max_solarenergy': round(max_solarenergy['solarenergy']/3.6, 1),
         'all_countries_temp': countries_temp,
         'top_sunenergy': top_sunenergy[:5],
         'cloudcover': cloudcover,
@@ -111,7 +112,7 @@ def city_charts(request):
             inlist = True
     if inlist:
         # created_today_filter=Q(created_at__contains='2023-11-22')
-        created_today_filter=Q(created_at__contains=(localtime(now()).date()))
+        # created_today_filter=Q(created_at__contains=(localtime(now()).date()))
         city_filter = Q(address__contains=city)
         today_weather = list(Weather.objects.filter(created_today_filter & city_filter).values())
     else:
@@ -129,8 +130,8 @@ def population_chart(request):
     labels = []
     data = []
     cloudcover = []
-    created_today_filter=Q(created_at__contains=(localtime(now()).date()))
-    measure_today_filter = Q(measure_date=(localtime(now()).date()))
+    # created_today_filter=Q(created_at__contains=(localtime(now()).date()))
+    # measure_today_filter = Q(measure_date=(localtime(now()).date()))
     # created_today_filter=Q(created_at__contains='2023-11-22')
     # measure_today_filter = Q(measure_date='2023-11-22')
     queryset = Weather.objects.filter(created_today_filter & measure_today_filter).values('address', 'temp').order_by('temp')
@@ -149,8 +150,8 @@ def temp_chart(request):
     data = []
     temp_min = []
     temp_max = []
-    created_today_filter=Q(created_at__contains=(localtime(now()).date()))
-    measure_today_filter = Q(measure_date=(localtime(now()).date()))
+    # created_today_filter=Q(created_at__contains=(localtime(now()).date()))
+    # measure_today_filter = Q(measure_date=(localtime(now()).date()))
     # created_today_filter=Q(created_at__contains='2023-11-22')
     # measure_today_filter = Q(measure_date='2023-11-22')
     queryset = Weather.objects.filter(created_today_filter & measure_today_filter).values('address', 'temp', 'temp_max', 'temp_min')
@@ -173,8 +174,8 @@ def temp_chart(request):
 def pres_chart(request):
     labels = []
     data = []
-    created_today_filter=Q(created_at__contains=(localtime(now()).date()))
-    measure_today_filter = Q(measure_date=(localtime(now()).date()))
+    # created_today_filter=Q(created_at__contains=(localtime(now()).date()))
+    # measure_today_filter = Q(measure_date=(localtime(now()).date()))
     # created_today_filter=Q(created_at__contains='2023-11-22')
     # measure_today_filter = Q(measure_date='2023-11-22')
     queryset = Weather.objects.filter(created_today_filter & measure_today_filter).values('address', 'pressure')
@@ -192,8 +193,8 @@ def pres_chart(request):
 def hum_chart(request):
     labels = []
     data = []
-    created_today_filter=Q(created_at__contains=(localtime(now()).date()))
-    measure_today_filter = Q(measure_date=(localtime(now()).date()))
+    # created_today_filter=Q(created_at__contains=(localtime(now()).date()))
+    # measure_today_filter = Q(measure_date=(localtime(now()).date()))
     # created_today_filter=Q(created_at__contains='2023-11-22')
     # measure_today_filter = Q(measure_date='2023-11-22')
     queryset = Weather.objects.filter(created_today_filter & measure_today_filter).order_by('-humidity').values('address', 'humidity')
@@ -211,8 +212,8 @@ def hum_chart(request):
 def sun_chart(request):
     labels = []
     data = []
-    created_today_filter=Q(created_at__contains=(localtime(now()).date()))
-    measure_today_filter = Q(measure_date=(localtime(now()).date()))
+    # created_today_filter=Q(created_at__contains=(localtime(now()).date()))
+    # measure_today_filter = Q(measure_date=(localtime(now()).date()))
     # created_today_filter=Q(created_at__contains='2023-11-22')
     # measure_today_filter = Q(measure_date='2023-11-22')
     queryset = Weather.objects.filter(created_today_filter & measure_today_filter).values('address', 'cloudcover').order_by('-cloudcover')
