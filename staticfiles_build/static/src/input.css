@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* Custom Variables */
+/* :root {
+    --primary-color: rgb(19, 18, 16);
+  } */
+  
+  /* Override default focus colors for tailwindcss-forms https://github.com/tailwindlabs/tailwindcss-forms */
+  [type='text'],
+  [type='email'],
+  [multiple],
+  textarea,
+  select{-webkit-appearance:none;-moz-appearance:none;appearance:none;background-color:#0C0A09;border-color:#78716C;border-width:1px;font-size: 0.85rem;}

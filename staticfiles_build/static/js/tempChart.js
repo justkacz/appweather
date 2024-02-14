@@ -21,10 +21,9 @@ $(function () {
         const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
         const animation = {
             x: {
-              // type: 'number',
               easing: 'linear',
               duration: delayBetweenPoints,
-              from: NaN, // the point is initially skipped
+              from: NaN,
               delay(ctx) {
                 if (ctx.type !== 'data' || ctx.xStarted) {
                   return 0;
@@ -34,7 +33,6 @@ $(function () {
               }
             },
             y: {
-              // type: 'number',
               easing: 'linear',
               duration: delayBetweenPoints,
               from: previousY,
@@ -62,7 +60,6 @@ $(function () {
                 {
                   label: 'Temp max',
                   fill: false,
-                  //backgroundColor: "rgb(176, 56, 58)",
                   borderColor: "rgb(143, 52, 0)",
                   borderDash: [5, 5],
                   borderWidth: 1,
@@ -72,7 +69,6 @@ $(function () {
                 {
                   label: 'Temp min',
                   fill: false,
-                  //backgroundColor: "rgb(56, 132, 176)",
                   borderColor: "rgb(89, 89, 88)",
                   borderDash: [5, 5],
                   borderWidth: 1,
@@ -94,7 +90,6 @@ $(function () {
                 },
                 legend: {
                   position: 'right'
-                  // labels: { color: 'darkred', }
                 },
                 animation,
                 interaction: {
@@ -104,21 +99,9 @@ $(function () {
                     tooltip: {
                         callbacks: {
                             title: function(tooltipItem) {
-                                // console.log(tooltipItem[0].formattedValue);
                                 let title = data.labels[tooltipItem[0].dataIndex];
                                 return title;
                             },
-                            // label: function(context) {
-                            //     let label = context.dataset.label || '';
-        
-                            //     // if (label) {
-                            //     //     label += ': ';
-                            //     // }
-                            //     // if (context.parsed.y !== null) {
-                            //     //     label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
-                            //     // }
-                            //     return label;
-                            // }
                             label: function(context) {
                                 let label = "Temp: " + context.parsed.y
                                 return label;
@@ -137,13 +120,7 @@ $(function () {
                                 callback: (index) => data.labels[index],
                                 stepSize: 1,
                                 // autoSkip: false,      
-                                fontSize: 7   
-                                // callback: function(val, index) {
-                                    // Hide every 2nd tick label
-                                    // return index % 2 === 0 ? this.getLabelForValue(val) : '';
-                                    // return val + 2
-                                //   },
-                                //   color: 'red',
+                                fontSize: 7 
                             }
                         },
                         y: {

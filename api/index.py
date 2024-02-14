@@ -34,7 +34,6 @@ class handler(BaseHTTPRequestHandler):
         today = (datetime.now()+timedelta(hours=1)).date()
         last_updated = cursor.fetchone()[0]
         last_updated = last_updated if last_updated else datetime(1900, 1, 1)
-        # dopisac exception jak nie ma danych
         if last_updated.date() < today:
             API_KEY=os.getenv('API_KEY')
             loc=['London,UK|Stockholm, SE|Kyiv, UA|Ljubljana, SI|Bratislava, SK|Skopje, MKD|Nikosia, CY|Belgrade, RS|Chisinau MD|Podgorica, MNE|Madrit, ES|Dublin, IR|Vienna, AU|Georgia, GA|Prague, CZ|Rome, IT|Tirana, AL|Reykjavik, IS|Talinn, ES|Andorra la Vella, AD|Bern, CH|Pristina, XK|Warsaw, PL|Bucharest, RO|Luxembourg, LU|Vilnius, LT|Riga, LV|Vaduz, LI|Ankara, TR|Oslo, NO|Lisbon, PT|Amsterdam, NL|Athens, GR|Minsk, BY|Helsinki, FN|Budapest, HU|Sarajevo, BA|Berlin, DE|Zagreb, HR|Copenhagen, DK|Sofia, BG|Paris, FR|Brussels, BE']
@@ -48,7 +47,7 @@ class handler(BaseHTTPRequestHandler):
                 address = re.sub(r"[\['\]]", '', country['address'])
                 for item in country['days']:
                     cursor.execute("""
-                    INSERT INTO weather_weather (created_at, latitude, longitude, address_full, address, measure_date, temp_max, temp_min, temp, humidity, windspeed, pressure, cloudcover, solarenergy, sunrise, sunset, conditions, description, icon) values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING;""",
+                    INSERT INTO weather_weather (created_at, latitude, longitude, address_full, address, measure_date, temp_max, temp_min, temp, humidity, windspeed, pressure, cloudcover, solarenergy, sunrise, sunset, conditions, description, icon) values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING;""",
                         ( today,
                           latitude,
                           longitude,

@@ -1,4 +1,3 @@
-
 $(function () {
 
   var $humChart = $("#hum-chart");
@@ -9,21 +8,17 @@ $(function () {
       var ctx = $humChart[0].getContext("2d");
 
       const colors = {
-        purple: {
+        yellow: {
           default: "rgba(245, 158, 11, 1)",
           half: "rgba(245, 158, 11, 0.5)",
           quarter: "rgba(245, 158, 11, 0.25)",
           zero: "rgba(245, 158, 11, 0)"
-        },
-        indigo: {
-          default: "rgba(80, 102, 120, 1)",
-          quarter: "rgba(80, 102, 120, 0.25)"
         }
       };
       gradient = ctx.createLinearGradient(0, 25, 0, 50);
-      gradient.addColorStop(0, colors.purple.half);
-      gradient.addColorStop(0.35, colors.purple.quarter);
-      gradient.addColorStop(1, colors.purple.zero);
+      gradient.addColorStop(0, colors.yellow.half);
+      gradient.addColorStop(0.35, colors.yellow.quarter);
+      gradient.addColorStop(1, colors.yellow.zero);
 
       var myChart = new Chart(ctx, {
         type: 'bar',
@@ -33,12 +28,9 @@ $(function () {
             {
               label: 'Fully Rounded',
               data: [],
-              // borderColor: 'rgba(255, 99, 132, 0.2)',
               backgroundColor: gradient,
-              // backgroundColor: 'rgba(255, 99, 132, 0.2)',
               borderColor: "rgba(245, 158, 11, 0.3)",
               borderWidth: 2,
-              // borderRadius: 8,
               borderSkipped: false,
             }
           ]
@@ -69,7 +61,6 @@ $(function () {
           plugins: {
             legend: {
               display: false,
-              // position: 'top',
             },
             tooltip: {
               callbacks: {
@@ -94,9 +85,6 @@ $(function () {
           }, i * 1000)
           }
         ;
-
-      // setInterval(myChart.update(), 3000);
-      // myChart.update();
       
     },
     error: () => console.log("Failed to fetch chart data from the endpoint.")

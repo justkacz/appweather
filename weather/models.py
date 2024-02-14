@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils import timezone
 
 
 # Create your models here.
@@ -18,14 +17,13 @@ class Weather(models.Model):
     pressure = models.FloatField()
     cloudcover = models.FloatField()
     solarenergy = models.FloatField()
-    # uvindex = models.FloatField()
     sunrise = models.TimeField()
     sunset = models.TimeField()
     conditions = models.TextField(default='')
     description = models.TextField(default='')
     icon = models.CharField(max_length=200)
 
-    class Meta: # new
+    class Meta:
         verbose_name = "weather"
         verbose_name_plural = "weather"
 

@@ -1,4 +1,3 @@
-
 $(function () {
 
   var $presChart = $("#pres-chart");
@@ -8,21 +7,17 @@ $(function () {
   
       var ctx = $presChart[0].getContext("2d");
       const colors = {
-        purple: {
+        yellow: {
           default: "rgba(245, 158, 11, 1)",
           half: "rgba(245, 158, 11, 0.5)",
           quarter: "rgba(245, 158, 11, 0.25)",
           zero: "rgba(245, 158, 11, 0)"
-        },
-        indigo: {
-          default: "rgba(80, 102, 120, 1)",
-          quarter: "rgba(80, 102, 120, 0.25)"
         }
       };
       gradient = ctx.createLinearGradient(0, 25, 0, 120);
-      gradient.addColorStop(0, colors.purple.half);
-      gradient.addColorStop(0.35, colors.purple.quarter);
-      gradient.addColorStop(1, colors.purple.zero);
+      gradient.addColorStop(0, colors.yellow.half);
+      gradient.addColorStop(0.35, colors.yellow.quarter);
+      gradient.addColorStop(1, colors.yellow.zero);
 
       new Chart(ctx, {
         type: "line",
@@ -32,8 +27,8 @@ $(function () {
             {
               fill: true,
               backgroundColor: gradient,
-              pointBackgroundColor: colors.purple.default,
-              borderColor: colors.purple.default,
+              pointBackgroundColor: colors.yellow.default,
+              borderColor: colors.yellow.default,
               data: data.data,
               lineTension: 0.2,
               borderWidth: 1,
