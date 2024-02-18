@@ -1,11 +1,12 @@
-import requests
-import psycopg2
-import os
-import re
-# import pandas as pd
-# from sqlalchemy import create_engine
-from datetime import date, datetime, timedelta
+from datetime import datetime
 from dotenv import load_dotenv
+import psycopg2
+import re
+import requests
+import os
+
+from django.utils.timezone import localtime, now
+
 
 load_dotenv()
 
@@ -31,7 +32,7 @@ class handler(BaseHTTPRequestHandler):
         cursor.execute("""Delete from weather_weather where created_at < CURRENT_DATE-14;""")
         
         cursor.execute("""select max(created_at) from weather_weather;""")
-        today = (datetime.now()+timedelta(hours=1)).date()
+        today = (localtime().now()).date()
         last_updated = cursor.fetchone()[0]
         last_updated = last_updated if last_updated else datetime(1900, 1, 1)
         if last_updated.date() < today:
@@ -67,9 +68,9 @@ class handler(BaseHTTPRequestHandler):
                           item['conditions'],
                           item['description'],
                           item['icon']))
-            self.wfile.write(f'updated: {last_updated}, {last_updated.date()}, {datetime.now()+timedelta(hours=1)}, {date.today()+timedelta(hours=1)}'.encode())
+            self.wfile.write(f'updated: {last_updated}')
         else:
-            self.wfile.write(f'data available: {last_updated}, {last_updated.date()}, {datetime.now()+timedelta(hours=1)}, {date.today()+timedelta(hours=1)}'.encode())
+            self.wfile.write(f'data available: {last_updated}')
         connection.commit()
         return
 

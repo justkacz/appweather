@@ -39,7 +39,7 @@ class CityWeather(DetailView):
         if inlist:
             city_filter = Q(address__contains=city)
             today_weather = Weather.objects.filter(created_today_filter & city_filter & measure_today_filter).first()
-            daily_forecast = Weather.objects.filter(created_today_filter & city_filter).exclude(measure_today_filter)
+            daily_forecast = Weather.objects.filter(created_today_filter & city_filter).exclude(measure_today_filter).order_by('measure_date')
         else:
             try:
                 url = f'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{city}/next7days?unitGroup=metric&include=days%2Ccurrent&key={API_KEY}&contentType=json'

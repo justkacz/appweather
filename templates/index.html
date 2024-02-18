@@ -136,7 +136,7 @@
                                                 </span> 
                                           </div>
                                           <div class="flex flex-col items-end justify-around">
-                                                <p class="text-right text-2xl font-extrabold text-stone-300">{{ avg_temp.avg_temp }}&#8451;</p>
+                                                <p class="text-right text-2xl xl:text-base 2xl:text-2xl font-extrabold text-stone-300">{{ avg_temp.avg_temp }}&#8451;</p>
                                                 <p class="text-right text-sm text-stone-500">Average temperature</p>
                                           </div>
                                   </div>
@@ -149,7 +149,7 @@
                                                 </span> 
                                           </div>
                                           <div class="flex flex-col items-end justify-around">
-                                                <p class="text-right text-xl font-extrabold text-stone-300"> {{ country_max_solarenergy }}, {{ val_max_solarenergy }} kWh/&#13217;</p>
+                                                <p class="text-right text-2xl xl:text-base 2xl:text-2xl font-extrabold text-stone-300"> {{ country_max_solarenergy }}, {{ val_max_solarenergy }} kWh/&#13217;</p>
                                                 <p class="text-right text-sm text-stone-500">Max solar energy</p>
                                           </div>
                                   </div> 
@@ -158,14 +158,14 @@
                                   <div class="flex justify-between px-4">
                                       <div class="flex mr-4">
                                             <span class="items-center px-4 py-4 m-auto bg-yellow-300/10 rounded-full hover:bg-yellow-300/20">
-                                              <svg xmlns="http://www.w3.org/2000/svg" class="items-center w-11 h-11 m-auto text-[#d97706] hover:text-yellow-400"
+                                              <svg xmlns="http://www.w3.org/2000/svg" class="items-center w-11 h-11 m-auto text-[#d97706]"
                                                   viewBox="0 0 20 20" fill="currentColor">
                                                   <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
                                               </svg>
                                             </span> 
                                       </div>
                                       <div class="flex flex-col items-end justify-around">
-                                          <p class="text-right text-2xl font-extrabold text-stone-300">{{ total_capitals }}</p>
+                                          <p class="text-right text-2xl xl:text-base 2xl:text-2xl font-extrabold text-stone-300">{{ total_capitals }}</p>
                                           <p class="text-right text-sm text-stone-500">Total no. of capitals</p> 
                                       </div>
                                   </div>
@@ -179,37 +179,36 @@
                                           </span> 
                                     </div>
                                     <div class="flex flex-col items-end justify-around">
-                                        <p class="text-right text-2xl font-extrabold text-stone-300">{{ avg_wind.avg_wind }} km/h</p>
+                                        <p class="text-right text-2xl xl:text-base 2xl:text-2xl font-extrabold text-stone-300">{{ avg_wind.avg_wind }} km/h</p>
                                         <p class="text-right text-sm text-stone-500">Average wind speed</p> 
                                     </div>
                                   </div>
                         </div>
-                        <div class="flex-1 col-span-2 px-8 py-2 bg-stone-950 shadow-lg rounded-lg mt-3">
-                                      <div class="mb-6">
-                                          <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
-                                              <li class="me-2" role="presentation">
-                                                  <button class="inline-block p-1 text-gray-200 font-light rounded-t-lg" id="temp-tab" data-tabs-target="#temp" type="button" role="tab" aria-controls="temp" aria-selected="false">Temperature</button>
-                                              </li>
-                                              <li class="me-2" role="presentation">
-                                                  <button class="inline-block p-1 text-gray-200 font-light rounded-t-lg hover:text-gray-600 hover:border-gray-300 " id="pres-tab" data-tabs-target="#pres" type="button" role="tab" aria-controls="pres" aria-selected="false">Pressure</button>
-                                              </li>
-                                              <li class="me-2" role="presentation">
-                                                  <button class="inline-block p-1 text-gray-200 font-light rounded-t-lg hover:text-gray-600 hover:border-gray-300 " id="hum-tab" data-tabs-target="#hum" type="button" role="tab" aria-controls="hum" aria-selected="false">Humidity</button>
-                                              </li>
-                                          </ul>
-                                      </div>
-                                      <div class="" id="default-tab-content">
-                                          <div class="hidden" id="temp" role="tabpanel" aria-labelledby="temp-tab">
-                                                  <canvas width="360" height="360" id="temp-chart" data-url="{% url 'temp-chart' %}"></canvas>
-                                          </div>
-                                          <div class="hidden h-full" id="pres" role="tabpanel" aria-labelledby="pres-tab">
-                                                  <canvas width="400" height="400" id="pres-chart" data-url="{% url 'pres-chart' %}"></canvas>
-                                          </div>
-                                          <div class="hidden" id="hum" role="tabpanel" aria-labelledby="hum-tab">
-                                                  <canvas width="400" height="400" id="hum-chart" data-url="{% url 'hum-chart' %}"></canvas>
-                                          </div>
-                                      </div>
-
+                        <div class="flex-1 col-span-2 px-8 py-2 bg-stone-950 shadow-lg rounded-lg">
+                                <div class="mb-4 ">
+                                <ul class="flex flex-wrap -mb-px text-sm text-center" id="default-styled-tab" data-tabs-toggle="#default-styled-tab-content" data-tabs-active-classes="text-purple-600 hover:text-purple-600 border-purple-600" data-tabs-inactive-classes="text-gray-500 hover:text-gray-600 border-gray-100 hover:border-gray-300" role="tablist">
+                                    <li class="me-2" role="presentation">
+                                        <button class="inline-block p-4 rounded-t-lg" id="temperature-styled-tab" data-tabs-target="#styled-temperature" type="button" role="tab" aria-controls="temperature" aria-selected="false">Temperature</button>
+                                    </li>
+                                    <li class="me-2" role="presentation">
+                                        <button class="inline-block p-4 rounded-t-lg hover:text-gray-600" id="pressure-styled-tab" data-tabs-target="#styled-pressure" type="button" role="tab" aria-controls="pressure" aria-selected="false">Pressure</button>
+                                    </li>
+                                    <li class="me-2" role="presentation">
+                                        <button class="inline-block p-4 rounded-t-lg hover:text-gray-600" id="humidity-styled-tab" data-tabs-target="#styled-humidity" type="button" role="tab" aria-controls="humidity" aria-selected="false">Humidity</button>
+                                    </li>
+                                </ul>
+                                </div>
+                                <div id="default-styled-tab-content">
+                                <div class="hidden" id="styled-temperature" role="tabpanel" aria-labelledby="temperature-tab">
+                                        <canvas width="360" height="360" id="temp-chart" data-url="{% url 'temp-chart' %}"></canvas>
+                                </div>
+                                <div class="hidden h-full" id="styled-pressure" role="tabpanel" aria-labelledby="pressure-tab">
+                                        <canvas width="400" height="400" id="pres-chart" data-url="{% url 'pres-chart' %}"></canvas>
+                                </div>
+                                <div class="hidden" id="styled-humidity" role="tabpanel" aria-labelledby="humidity-tab">
+                                        <canvas width="400" height="400" id="hum-chart" data-url="{% url 'hum-chart' %}"></canvas>
+                                </div>
+                                </div>
                         </div>
                   </div>
               </div>
