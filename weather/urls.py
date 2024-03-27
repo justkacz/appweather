@@ -1,9 +1,9 @@
 from django.urls import path
-from weather.views import CityWeather
+from weather.views import CityWeather, IndexView
 from . import views
 
 urlpatterns = [
-    path("", views.index, name="index"),
+    path("", IndexView.as_view(), name="index"),
     path("city/", CityWeather.as_view(), name="city"),
     path("contact/", views.contactView, name="contactview"),
     path('temp-chart/', views.temp_chart, name='temp-chart'),
