@@ -1,7 +1,7 @@
 from django import forms
 
 class ContactForm(forms.Form):
-    from_email = forms.EmailField(widget=forms.TextInput(attrs={"class": "w-full rounded-md border border-[#e0e0e0] focus:ring-yellow-500 focus:border-yellow-500 py-3 px-6 outline-none focus:ring-1 focus:outline-none focus:shadow-md", "placeholder": "Enter your email"}), required=True)
+    from_email = forms.EmailField(widget=forms.EmailInput(attrs={"class": "w-full rounded-md border border-[#e0e0e0] focus:ring-yellow-500 focus:border-yellow-500 py-3 px-6 outline-none focus:ring-1 focus:outline-none focus:shadow-md", "placeholder": "Enter your email"}), required=True)
     full_name = forms.CharField(widget=forms.TextInput(attrs={"class": "w-full rounded-md border border-[#e0e0e0] focus:ring-yellow-500 focus:border-yellow-500 py-3 px-6 outline-none focus:ring-1 focus:outline-none focus:shadow-md", "placeholder": "Enter your name"}), required=True)
     subject = forms.CharField(widget=forms.TextInput(attrs={"class": "w-full rounded-md border border-[#e0e0e0] focus:ring-yellow-500 focus:border-yellow-500 py-3 px-6 outline-none focus:ring-1 focus:outline-none focus:shadow-md", "placeholder": "Enter your subject"}), required=True)
     message = forms.CharField(widget=forms.Textarea(attrs={"class": "w-full resize-none rounded-md border border-[#e0e0e0] focus:ring-yellow-500 focus:border-yellow-500 py-3 px-6 outline-none focus:ring-1 focus:outline-none focus:shadow-md", "placeholder": "Type your message"}), required=True)
