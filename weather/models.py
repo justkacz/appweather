@@ -5,7 +5,7 @@ from django.db import models
 class Weather(models.Model):
     created_at = models.DateTimeField()
     latitude = models.FloatField()
-    longitude = models.FloatField(max_length=10)
+    longitude = models.FloatField()
     address_full = models.CharField(max_length=4000)
     address = models.CharField(max_length=4000)
     measure_date = models.DateField()
