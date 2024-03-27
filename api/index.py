@@ -6,13 +6,9 @@ import requests
 import os
 
 from django.utils.timezone import localtime, now
-
+from http.server import BaseHTTPRequestHandler
 
 load_dotenv()
-
-
-
-from http.server import BaseHTTPRequestHandler
 
 
 class handler(BaseHTTPRequestHandler):
@@ -37,11 +33,15 @@ class handler(BaseHTTPRequestHandler):
         last_updated = last_updated if last_updated else datetime(1900, 1, 1)
         if last_updated.date() < today:
             API_KEY=os.getenv('API_KEY')
-            loc=['London,UK|Stockholm, SE|Kyiv, UA|Ljubljana, SI|Bratislava, SK|Skopje, MKD|Nikosia, CY|Belgrade, RS|Chisinau MD|Podgorica, MNE|Madrit, ES|Dublin, IR|Vienna, AU|Georgia, GA|Prague, CZ|Rome, IT|Tirana, AL|Reykjavik, IS|Talinn, ES|Andorra la Vella, AD|Bern, CH|Pristina, XK|Warsaw, PL|Bucharest, RO|Luxembourg, LU|Vilnius, LT|Riga, LV|Vaduz, LI|Ankara, TR|Oslo, NO|Lisbon, PT|Amsterdam, NL|Athens, GR|Minsk, BY|Helsinki, FN|Budapest, HU|Sarajevo, BA|Berlin, DE|Zagreb, HR|Copenhagen, DK|Sofia, BG|Paris, FR|Brussels, BE']
-            url=f'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timelinemulti?unitGroup=metric&key={API_KEY}&locations={loc}&destart=today'
-            today_loc = requests.get(url).json()
-            data = today_loc['locations']
-            for country in data:
+            # API restriction max 5 locations per request:
+            locations = [['Tirana, AL|Andorra, AD|Vienna, AU|Brussels, BE|Minsk, BY'],['Sarajevo, BA|Sofia, BG|Zagreb, HR|Podgorica, MNE|Prague, CZ'], ['Copenhagen, DK|Talinn, ES|Helsinki, FN|Paris, FR|Athens, GR'], ['Madrit, ES|Amsterdam, NL|Dublin, IR|Reykjavik, IS|Vaduz, LI'], ['Vilnius, LT|Luxembourg, LU|Riga, LV|Skopje, MKD|Valetta, MT'], ['Chisinau, MD|Monaco, MC|Berlin, DE|Oslo, NO|Warsaw, PL'], ['Lisbon, PT|Moscow, RU|Bucharest, RO|San Marino, San Marino|Belgrade, RS'], ['Bratislava, SK|Ljubljana, SI|Bern, CH|Stockholm, SE|Kiev, UA'], ['Vatican, VA|Budapest, HU|London,UK|Rome, IT']]
+            all_loc = []
+            for loc in locations:    
+                url=f'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timelinemulti?unitGroup=metric&key={API_KEY}&locations={loc}&destart=today'
+                today_loc = requests.get(url).json()
+                data = today_loc['locations']
+                all_loc.extend(data)
+            for country in all_loc:
                 latitude = country['latitude']
                 longitude = country['longitude']
                 address_full = country['resolvedAddress']
@@ -68,9 +68,9 @@ class handler(BaseHTTPRequestHandler):
                           item['conditions'],
                           item['description'],
                           item['icon']))
-            self.wfile.write(f'updated: {last_updated}')
+            self.wfile.write(f'DB has been updated. Last update: {last_updated}'.encode())
         else:
-            self.wfile.write(f'data available: {last_updated}')
+            self.wfile.write(f'Data available. Last update: {last_updated}'.encode())
         connection.commit()
         return
 
