@@ -52,7 +52,7 @@ $(function () {
                 labels: data.labels,
                 datasets: [{
                   label: 'Temp',
-                  borderColor: "rgb(217, 119, 6)",
+                  borderColor: "rgb(194, 120, 3)",
                   borderWidth: 2,
                   radius: 0,
                   data: dane,

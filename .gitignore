@@ -12,6 +12,14 @@ venv/
 # Database
 db.sqlite3
 
+# Unit tests
+htmlcov/
+.coveragerc
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+
 # Static folder at project root
 # staticfiles_build/
 # static/
