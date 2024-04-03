@@ -1,4 +1,6 @@
 
+// Chart.register(ChartDataLabels);
+
 $(function () {
 
     var $gaugeChart = $("#city-charts3");
@@ -42,7 +44,7 @@ $(function () {
         
         new Chart(ctx, {
           type: 'doughnut',
-          plugins: [innerLabel],
+          plugins: [innerLabel, ChartDataLabels],
           data: {
               // labels: ['Score', 'Grey Area'],
               datasets: [{
