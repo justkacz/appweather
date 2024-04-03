@@ -22,8 +22,6 @@ API_KEY = os.getenv('API_KEY')
 last_refresh = Weather.objects.values('created_at').order_by('created_at').last()
 created_today_filter = Q(created_at__contains=(last_refresh['created_at'].date()))
 measure_today_filter = Q(measure_date__contains=(last_refresh['created_at'].date()))
-# created_today_filter=Q(created_at__contains='2023-11-22')
-# measure_today_filter = Q(measure_date__contains='2023-11-22')
 test_filter=Q(conditions__contains='Test conditions 2')
 
 class CityWeather(DetailView):
@@ -37,7 +35,7 @@ class CityWeather(DetailView):
         request.session['city'] = city        
         inlist = False
         for item in loc:
-            if city in item:
+            if city == item.split(',')[0]:
                 inlist = True
         if inlist:
             city_filter = Q(address__contains=city)
@@ -100,7 +98,7 @@ def city_charts(request):
     city = request.session.get('city', None)
     inlist = False
     for item in loc:
-        if city in item:
+        if city == item.split(',')[0]:
             inlist = True
     if inlist:
         city_filter = Q(address__contains=city)
