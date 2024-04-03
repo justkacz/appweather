@@ -26,7 +26,10 @@
                                         <div class="flex flex-col items-center col-span-1 p-8 bg-stone-950/50 shadow-lg rounded-lg">
                                             <p class="text-yellow-500 mb-4 text-lg font-semibold">Today</p>
                                                 <h1 class="text-4xl font-bold">{{ today_weather.temp }}&#8451;</h1>
-                                                <p class="text-sm font-semibold mb-8">{{ today_weather.pressure }}hPa &nbsp; &nbsp; {{ today_weather.windspeed }}km/h</p>
+                                                <div class="flex justify-evenly w-full text-sm font-semibold">
+                                                    <p class="mb-8 text-center pr-1 whitespace-nowrap">{{ today_weather.pressure }}hPa</p>
+                                                    <p class="mb-8 text-center pl-1 whitespace-nowrap">{{ today_weather.windspeed }}km/h</p>
+                                                </div>
                                                 <p class="text-xs mb-3">{{ today_weather.conditions }}</p>
                                                 <img class="w-24 h-24" src="{% static 'images/'%}{{ today_weather.icon }}.png" alt="">
                             {% endif %}
@@ -35,9 +38,11 @@
                                                 {% for forecast in daily_forecast %}
                                                             <div class="flex flex-col items-center col-span-1 p-8 bg-[rgba(87,83,78,0.3)] shadow-lg rounded-lg">
                                                                 <h3 class="text-yellow-500 mb-5 text-sm">{{ forecast.measure_date }}</h3>
-                                                                <!-- <h3 class="text-yellow-500 mb-5 text-sm">{{ forecast.measure_date|date:'l, M Y' }}</h3> -->
                                                                 <p class="text-3xl lg:text-4xl font-bold">{{ forecast.temp }}&#8451;</p>
-                                                                <p class="text-sm font-semibold mb-8">{{ forecast.pressure }}hPa &nbsp; &nbsp; {{ forecast.windspeed }}km/h</p>
+                                                                <div class="flex justify-evenly w-full text-sm font-semibold">
+                                                                    <p class="mb-8 text-center pr-1 whitespace-nowrap">{{ forecast.pressure }}hPa</p>
+                                                                    <p class="mb-8 text-center pl-1 whitespace-nowrap">{{ forecast.windspeed }}km/h</p>
+                                                                </div>
                                                                 <p class="text-center text-xs mb-3">{{ forecast.conditions }}</p>
                                                                 <img class="w-24 h-24" src="{% static 'images/'%}{{ forecast.icon }}.png" alt="">
                                                             </div>
@@ -67,18 +72,18 @@
                                                     </div>
                                                     <div class="flex flex-col col-span-6 items-center p-2 bg-stone-950 shadow-lg rounded-lg">
                                                             <div class="flex w-full justify-around">
-                                                                    <div class="w-1/2">
+                                                                    <div class="w-1/2 flex justify-center">
                                                                         <canvas class="" id="city-charts1" data-url="{% url 'city-charts' %}"></canvas>
                                                                     </div>
-                                                                    <div class="w-1/2">
+                                                                    <div class="w-1/2 flex justify-center">
                                                                         <canvas class="" id="city-charts2" data-url="{% url 'city-charts' %}"></canvas>
                                                                     </div>
                                                             </div>
                                                             <div class="flex w-full justify-around mt-6 mb-4">
-                                                                    <div class="w-1/2">
+                                                                    <div class="w-1/2 flex justify-center">
                                                                         <canvas class="" id="city-charts3" data-url="{% url 'city-charts' %}"></canvas>
                                                                     </div>
-                                                                    <div class="w-1/2">
+                                                                    <div class="w-1/2 flex justify-center">
                                                                         <canvas class="" id="city-charts4" data-url="{% url 'city-charts' %}"></canvas>
                                                                     </div>    
                                                             </div>
