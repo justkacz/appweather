@@ -1,14 +1,10 @@
 from datetime import datetime, timezone
-import json
 from unittest import mock
-from unittest.mock import patch
 
 from django.contrib.auth.models import User
-from django.core.mail import send_mail, BadHeaderError
-from django.core import mail
-from django.test import TestCase, Client, RequestFactory
+from django.core.mail import BadHeaderError
+from django.test import TestCase, Client
 from django.urls import reverse
-from django.utils import timezone
 from django.utils.timezone import make_aware
 from .form import ContactForm
 from .models import Weather
@@ -19,14 +15,14 @@ class SharedData(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.weather = Weather.objects.create(
-                # created_at = make_aware(datetime.now()),
-                created_at = datetime(2023, 11, 22, 0, 0, tzinfo=timezone.utc),
+                created_at = make_aware(datetime.now()),
+                # created_at = datetime(2023, 11, 22, 0, 0, tzinfo=timezone.utc),
                 latitude = 10.1,
                 longitude = 10.1,
                 address_full = 'London,UK',
                 address = 'London',
-                # measure_date = datetime.now(),
-                measure_date = datetime(2023, 11, 22, 0, 0, tzinfo=timezone.utc),
+                measure_date = datetime.now(),
+                # measure_date = datetime(2023, 11, 22, 0, 0, tzinfo=timezone.utc),
                 temp_max = 10.0,
                 temp_min = 1.0,
                 temp = 5.0,
