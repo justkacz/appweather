@@ -1,4 +1,6 @@
 
+// Chart.register(ChartDataLabels);
+
 $(function () {
 
     var $gaugeChart = $("#city-charts2");
@@ -43,7 +45,7 @@ $(function () {
         
         new Chart(ctx, {
           type: 'doughnut',
-          plugins: [innerLabel],
+          plugins: [innerLabel, ChartDataLabels],
           data: {
               datasets: [{
                   data: [data.data[0].windspeed, 100-data.data[0].windspeed],

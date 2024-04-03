@@ -31,6 +31,7 @@ $(function () {
 
       new Chart(ctx, {
         type: "line",
+        plugins: [ChartDataLabels],
         data: {
           labels: labels,
           datasets: [
@@ -63,6 +64,10 @@ $(function () {
               }
             },
            x: {
+              ticks: {
+                maxRotation: 25,
+                minRotation: 25
+              },
               title: {
                 display: true,
                 text: 'Date'

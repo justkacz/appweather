@@ -1,4 +1,6 @@
 
+// Chart.register(ChartDataLabels);
+
 $(function () {
 
     var $gaugeChart = $("#city-charts4");
@@ -42,7 +44,7 @@ $(function () {
         
         new Chart(ctx, {
           type: 'doughnut',
-          plugins: [innerLabel],
+          plugins: [innerLabel, ChartDataLabels],
           data: {
               datasets: [{
                   data: [data.data[0].humidity, 100-data.data[0].humidity],
