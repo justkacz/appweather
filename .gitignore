@@ -21,8 +21,8 @@ coverage.xml
 *.cover
 
 # Static folder at project root
-# staticfiles_build/
-# static/
+staticfiles_build/
+static/
 
 # macOS
 ._*
